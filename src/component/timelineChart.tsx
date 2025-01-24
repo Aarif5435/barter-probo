@@ -43,19 +43,18 @@ export const CustomChart = () => {
     plugins: {
       legend: {
         display: true,
-        position: 'top' as const,
+        position: 'top',
       },
       tooltip: {
-        mode: 'index' as const,
+        mode: 'index',
         intersect: false,
       },
       annotation: {
-        annotations: [
-          {
+        annotations: {
+          startLine: {
             type: 'line',
-            mode: 'vertical',
-            scaleID: 'x',
-            value: '19:10',
+            xMin: '19:10',
+            xMax: '19:10',
             borderColor: 'black',
             borderWidth: 1,
             label: {
@@ -64,11 +63,10 @@ export const CustomChart = () => {
               position: 'top',
             },
           },
-          {
+          endLine: {
             type: 'line',
-            mode: 'vertical',
-            scaleID: 'x',
-            value: '19:15',
+            xMin: '19:15',
+            xMax: '19:15',
             borderColor: 'black',
             borderWidth: 1,
             label: {
@@ -77,9 +75,10 @@ export const CustomChart = () => {
               position: 'top',
             },
           },
-        ],
+        },
       },
     },
+    
   };
 
   const data = {
