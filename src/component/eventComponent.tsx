@@ -4,7 +4,6 @@ import { useState } from "react";
 import { PriceTable } from "./pricingTable";
 import userProfile from "../assets/userprofile.avif";
 import { ProgressBar } from "./progressBar";
-import { CustomChart } from "./timelineChart";
 import { ReadMoreText } from "../utils/readMore";
 import { BuySellCard } from "./buySellCard";
 
@@ -213,7 +212,7 @@ export const EventsCompo = () => {
             <h1 className="text-5xl font-bold text-[#197BFF]">
               80% probability of Yes
             </h1>
-            <CustomChart />
+            {/* <CustomChart /> */}
           </div>
           {/* Stats */}
           <div id="stats" className=" border p-8 bg-white rounded-xl">
