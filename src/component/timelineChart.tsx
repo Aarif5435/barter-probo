@@ -52,7 +52,7 @@ export const CustomChart = () => {
       annotation: {
         annotations: {
           startLine: {
-            type: 'line',
+            // type: 'line',
             xMin: '19:10',
             xMax: '19:10',
             borderColor: 'black',
@@ -64,7 +64,7 @@ export const CustomChart = () => {
             },
           },
           endLine: {
-            type: 'line',
+            // type: 'line',
             xMin: '19:15',
             xMax: '19:15',
             borderColor: 'black',
