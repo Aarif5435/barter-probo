@@ -29,7 +29,7 @@ export const TradeCard = ({
       <div
         key={symbol.id}
         onClick={() => navigate("/event-details")}
-        className="border grid-flow-row w-full p-3rounded-xl cursor-pointer bg-white shadow-md mt-3"
+        className="border grid-flow-row w-full p-3 rounded-xl cursor-pointer bg-white shadow-md mt-3"
       >
         <span className="flex text-xs">
           <img

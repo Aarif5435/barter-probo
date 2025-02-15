@@ -7,7 +7,6 @@ import { ProgressBar } from "./progressBar";
 import { ReadMoreText } from "../utils/readMore";
 import { BuySellCard } from "./buySellCard";
 
-
 const navigationBar = [
   {
     id: 1,
@@ -106,7 +105,6 @@ export const EventsCompo = () => {
   >("");
   const [activeTab, setActiveTab] = useState(1);
 
-
   const handleNavigationClick = (id: string, value: string) => {
     setNavigationName(value);
 
@@ -117,159 +115,152 @@ export const EventsCompo = () => {
   };
 
   return (
-    <>
-      <div className="xl:flex px-24 block pt-10">
-        <div className="pr-24 xl:w-2/3 w-full space-y-10">
-          <RoutingCompo />
+    <div className="flex flex-col md:flex-row px-4 md:px-8 lg:px-16 xl:px-24 pt-6 md:pt-10">
+      <div className="w-full md:w-2/3 md:pr-6 lg:pr-12 xl:pr-24 space-y-6 md:space-y-10">
+        <RoutingCompo />
 
-          <div className="pt-10 flex gap-5">
-            <img
-              className="rounded-[50%] object-contain"
-              width={100}
-              height={100}
-              src={bitcoing}
-              alt="bitcoin"
-            />
-            <h1 className="font-bold text-4xl object-contain">
-              Bitcoin to be priced at 67364.34 USDT or more at 03:55 AM?
-            </h1>
+        <div className="pt-6 md:pt-10 flex flex-col md:flex-row gap-4 md:gap-5 items-center md:items-start">
+          <img
+            className="rounded-full object-contain w-16 h-16 md:w-24 md:h-24 xl:w-[100px] xl:h-[100px]"
+            src={bitcoing}
+            alt="bitcoin"
+          />
+          <h1 className="font-bold text-2xl md:text-3xl xl:text-4xl text-center md:text-left">
+            Bitcoin to be priced at 67364.34 USDT or more at 03:55 AM?
+          </h1>
+        </div>
+
+        <div id="navigation-bar" className="w-full md:w-fit overflow-x-auto">
+          <ul className="flex gap-6 md:gap-10 font-light text-base md:text-lg text-[#545454] cursor-pointer whitespace-nowrap">
+            {navigationBar.map((item) => (
+              <li
+                onClick={() => handleNavigationClick(item.value, item.value)}
+                key={item.id}
+                value={item.value}
+                className={`${
+                  navigatioName === item.value
+                    ? "border-b-2 border-black pb-3"
+                    : ""
+                } px-2 md:px-0`}
+              >
+                {item.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div
+          id="orderbook"
+          className={`${
+            activeTab === 2 && "h-72"
+          } border rounded-xl overflow-hidden bg-white`}
+        >
+          <div className="text-sm cursor-pointer border-b-[#E3E3E3] bg-white z-10 border-b-2 sticky top-0 flex gap-6 md:gap-10 px-4 md:px-8">
+            {orderBookTab.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`pb-3 text-sm md:text-base text-[#545454] pt-5 cursor-pointer relative transition-all duration-300 ease-in-out ${
+                  activeTab === item.id
+                    ? "font-bold text-black"
+                    : "font-normal text-[#575757]"
+                }`}
+              >
+                {item.title}
+                {activeTab === item.id && (
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-black transition-transform duration-1000 ease-in-out transform translate-y-[2px]" />
+                )}
+              </button>
+            ))}
           </div>
-          {/* navigation bar */}
-          <div id="navigation-bar" className="mt-5 w-fit">
-            <ul className="flex gap-10 font-light text-lg text-[#545454] cursor-pointer">
-              {navigationBar.map((item) => (
-                <li
-                  onClick={() => handleNavigationClick(item.value, item.value)}
-                  key={item.id}
-                  value={item.value}
-                  className={`${
-                    navigatioName === item.value
-                      ? "border-b-2 border-black pb-3"
-                      : ""
-                  }`}
-                >
-                  {item.title}
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* order book */}
-          <div
-            id="orderbook"
-            className={`${
-              activeTab === 2 && "h-72"
-            }  border px-8 rounded-xl overflow-scroll bg-white`}
-          >
-            <div className="text-sm cursor-pointer border-b-[#E3E3E3] bg-white z-10 border-b-2 sticky top-0 flex gap-10 px-2">
-              {orderBookTab.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`pb-3 text-[16px] text-[#545454] pt-5 cursor-pointer relative transition-all duration-300 ease-in-out ${
-                    activeTab === item.id
-                      ? "font-bold text-black"
-                      : "font-normal text-[#575757]"
-                  }`}
-                >
-                  {item.title}
-                  {activeTab === item.id && (
-                    <span
-                      className="absolute left-0 bottom-0 w-full h-[2px] bg-black 
-              transition-transform duration-1000 ease-in-out transform translate-y-[2px]"
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-            {activeTab === 1 ? (
-              <div className="pt-5 flex gap-5">
-                <div className="w-1/2">
-                  <PriceTable data={dataYes} qty={"YES"} />
-                </div>
-                <div className="w-1/2">
-                  <PriceTable data={dataNo} qty={"NO"} />
-                </div>
+          
+          {activeTab === 1 ? (
+            <div className="pt-5 flex flex-col md:flex-row gap-5 px-4 md:px-8">
+              <div className="w-full md:w-1/2">
+                <PriceTable data={dataYes} qty={"YES"} />
               </div>
-            ) : (
-              progressData.map((val) => (
+              <div className="w-full md:w-1/2">
+                <PriceTable data={dataNo} qty={"NO"} />
+              </div>
+            </div>
+          ) : (
+            <div className="px-4 md:px-8">
+              {progressData.map((val) => (
                 <ProgressBar
+                  key={val.id}
                   value1={val.yesValue}
                   value2={val.noValue}
-                  userNames={["Prober", "Prober"]}
-                  userIcon={userProfile}
+                  userNames={val.userName}
+                  userIcon={val.userIcon}
                 />
-              ))
-            )}
-          </div>
-          {/* timeline */}
-          <div
-            id="timeline"
-            className=" border p-4 px-8 pt-8 rounded-xl flex flex-col items-center bg-white"
-          >
-            <h3 className="font-montserrat font-medium text-[#7A7A7A]">
-              THE MARKET PREDICTS
-            </h3>
-            <h1 className="text-5xl font-bold text-[#197BFF]">
-              80% probability of Yes
-            </h1>
-            {/* <CustomChart /> */}
-          </div>
-          {/* Stats */}
-          <div id="stats" className=" border p-8 bg-white rounded-xl">
-            <h3 className="text-2xl font-semibold mb-5">Stats</h3>
-            <div className="border rounded-lg p-5">
-              <h1 className="font-semibold pt-2 text-md pb-3">Overview</h1>
-              <p className="text-sm font-light w-[85%]">
-                Bitcoin is a decentralized digital currency that can be
-                transferred on the peer-to-peer bitcoin network. Bitcoin
-                transactions are verified by network nodes through cryptography
-                and recorded in a public distributed ledger called a blockchain.{" "}
-                <br />
-                Open price at expiry time as displayed on the source of truth
-                will be considered
-              </p>
+              ))}
             </div>
-          </div>
-          {/* About */}
-          <div id="overview" className=" border p-8 bg-white rounded-xl">
-            <h1 className="text-2xl font-bold">About the event</h1>
-            <div className="xl:flex block space-y-5 mt-8 items-start justify-between w-full text-sm font-medium text-gray-800">
-              <div className="flex w-1/3 flex-col">
-                <span className="text-xs font-semibold text-black">
-                  Source of Truth
-                </span>
-                <a
-                  href="https://in.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline w-20"
-                >
-                  in.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT
-                </a>
-              </div>
-              <div className="flex w-1/3 flex-col">
-                <span className="text-xs text-black font-semibold">
-                  Trading started on
-                </span>
-                <span>26 Oct, 2024</span>
-              </div>
-              <div className="flex w-1/3 flex-col">
-                <span className="text-xs text-black font-semibold">
-                  Event expires on
-                </span>
-                <span>26 Oct, 2024</span>
-              </div>
-            </div>
-            <div className="mt-5">
-              <span className="text-xs font-semibold text-black">
-                Event Overview & Statistics
-              </span>
-              {ReadMoreText(description)}
-            </div>
+          )}
+        </div>
+
+        <div
+          id="timeline"
+          className="border p-4 md:p-8 rounded-xl flex flex-col items-center bg-white"
+        >
+          <h3 className="font-montserrat font-medium text-[#7A7A7A] text-sm md:text-base">
+            THE MARKET PREDICTS
+          </h3>
+          <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-[#197BFF] text-center">
+            80% probability of Yes
+          </h1>
+        </div>
+
+        <div id="stats" className="border p-4 md:p-8 bg-white rounded-xl">
+          <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-5">Stats</h3>
+          <div className="border rounded-lg p-4 md:p-5">
+            <h1 className="font-semibold pt-2 text-base md:text-md pb-3">Overview</h1>
+            <p className="text-sm font-light">
+              {description}
+            </p>
           </div>
         </div>
-       <BuySellCard/>       
+
+        <div id="overview" className="border p-4 md:p-8 bg-white rounded-xl">
+          <h1 className="text-xl md:text-2xl font-bold">About the event</h1>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-0 mt-6 md:mt-8 items-start justify-between w-full text-sm font-medium text-gray-800">
+            <div className="w-full md:w-1/3">
+              <span className="text-xs font-semibold text-black block mb-1">
+                Source of Truth
+              </span>
+              <a
+                href="https://in.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline break-words"
+              >
+                in.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT
+              </a>
+            </div>
+            <div className="w-full md:w-1/3">
+              <span className="text-xs text-black font-semibold block mb-1">
+                Trading started on
+              </span>
+              <span>26 Oct, 2024</span>
+            </div>
+            <div className="w-full md:w-1/3">
+              <span className="text-xs text-black font-semibold block mb-1">
+                Event expires on
+              </span>
+              <span>26 Oct, 2024</span>
+            </div>
+          </div>
+          <div className="mt-5">
+            <span className="text-xs font-semibold text-black block mb-2">
+              Event Overview & Statistics
+            </span>
+            {ReadMoreText(description)}
+          </div>
+        </div>
       </div>
-    </>
+
+      <div className="w-full md:w-1/3 mt-6 md:mt-0">
+        <BuySellCard />
+      </div>
+    </div>
   );
 };
